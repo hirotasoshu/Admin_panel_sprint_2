@@ -21,6 +21,10 @@ ALLOWED_HOSTS = [
     "[::1]",
 ]
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 
 # Installed apps for development only:
 

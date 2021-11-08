@@ -77,3 +77,8 @@ ignore_errors = true
 [tool.django-stubs]
 django_settings_module = "server.settings"
 
+[tool.pyright]
+include = ["./"]
+executionEnvironments = [{root = "./"}]
+reportMissingImports = true
+reportGeneralTypeIssues = false

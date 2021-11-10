@@ -1,7 +1,8 @@
-from typing import Any, Final
+from typing import Final
 
 from django.contrib import admin
 from django.db.models.query import QuerySet
+from django.http.request import HttpRequest
 
 from .models import FilmWork, Genre, GenreFilmWork, Person, PersonFilmWork
 
@@ -14,7 +15,7 @@ class GenreInline(admin.TabularInline):
     verbose_name = "Жанр"
     autocomplete_fields = ("genre",)
 
-    def get_queryset(self, request: Any) -> QuerySet[Any]:
+    def get_queryset(self, request: HttpRequest) -> QuerySet[GenreFilmWork]:
         return super().get_queryset(request).select_related("genre", "film_work")
 
 
@@ -24,7 +25,7 @@ class PersonRoleInline(admin.TabularInline):
     verbose_name = "Роль"
     autocomplete_fields = ("person",)
 
-    def get_queryset(self, request: Any) -> QuerySet[Any]:
+    def get_queryset(self, request: HttpRequest) -> QuerySet[PersonFilmWork]:
         return super().get_queryset(request).select_related("person", "film_work")
 
 

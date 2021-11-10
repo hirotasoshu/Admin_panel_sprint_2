@@ -1,0 +1,45 @@
+version: "3.8"
+services:
+  db:
+    image: "postgres:13-alpine"
+    restart: unless-stopped
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/pg/init.sql:/docker-entrypoint-initdb.d/1-init.sql
+    env_file: ./config/.env
+
+  web:
+    build:
+      target: development_build
+      context: .
+      dockerfile: ./docker/django/Dockerfile
+      args:
+        DJANGO_ENV: development
+
+    volumes:
+      - django-static:/var/www/django/static
+    depends_on:
+      - db
+    env_file: ./config/.env
+    environment:
+      DJANGO_DATABASE_HOST: db
+
+    command: python -Wd manage.py runserver 0.0.0.0:8000
+    healthcheck:
+      # We use `$$` here because:
+      # one `$` goes to shell,
+      # one `$` goes to `docker-compose.yml` escaping
+      test: |
+        /usr/bin/test $$(
+          /usr/bin/curl --fail http://localhost:8000/health/?format=json
+          --write-out "%{http_code}" --silent --output /dev/null
+        ) -eq 200
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+
+volumes:
+  pgdata:
+  django-static:

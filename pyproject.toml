@@ -51,7 +51,6 @@ profile = "black"
 [tool.mypy]
 python_version = "3.9"
 warn_redundant_casts = true
-warn_unused_ignores = true
 warn_unreachable = true
 disallow_untyped_calls = true
 disallow_untyped_defs = true
@@ -77,3 +76,8 @@ ignore_errors = true
 [tool.django-stubs]
 django_settings_module = "server.settings"
 
+[tool.pyright]
+include = ["./"]
+executionEnvironments = [{root = "./"}]
+reportMissingImports = true
+reportGeneralTypeIssues = false

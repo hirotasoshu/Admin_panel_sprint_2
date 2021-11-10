@@ -15,6 +15,6 @@ repos:
     hooks:
       - id: system
         name: MyPy
-        entry: poetry run mypy .
+        entry: poetry run mypy . --no-incremental --cache-dir=/dev/null
         pass_filenames: false
         language: system

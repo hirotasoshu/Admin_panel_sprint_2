@@ -4,7 +4,7 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .utils.mixins import CreatedAtIDMixin, CreatedUpdatedAtIDMixin
+from .utils.mixins.models import CreatedAtIDMixin, CreatedUpdatedAtIDMixin
 from .utils.types import FilmType, RoleType
 from .utils.validators import validate_rating
 
@@ -27,6 +27,7 @@ class FilmWork(CreatedUpdatedAtIDMixin):
     )
     type = models.CharField(_("Тип фильма"), max_length=20, choices=FilmType.choices)
     genres = models.ManyToManyField("Genre", through="GenreFilmWork")
+    persons = models.ManyToManyField("Person", through="PersonFilmWork")
 
     class Meta:
         verbose_name = _("Фильм")

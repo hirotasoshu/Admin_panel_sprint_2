@@ -42,7 +42,7 @@ $ make dev-logs
 $ make down
 ```
 
-# Разработка в докере (dev версия)
+# Prod версия
 1. Запустить приложение:
 ```console
 $ make up-prod

@@ -1,4 +1,4 @@
-Использовал этот [темплейт](https://github.com/wemake-services/wemake-django-template), чуть-чуть переделал под себя и упростил
+Использовал [wemake-django-template](https://github.com/wemake-services/wemake-django-template), чуть-чуть переделал под себя и упростил
 
 # Локальная разработка
 ## Требуется poetry

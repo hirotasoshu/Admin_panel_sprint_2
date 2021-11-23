@@ -1,4 +1,4 @@
-name: Build and push movies_admin: prod and dev versions
+name: Build and push movies_admin (dev and prod)
 
 on:
   push:

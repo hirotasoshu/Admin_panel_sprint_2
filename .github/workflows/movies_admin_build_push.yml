@@ -1,0 +1,48 @@
+name: Build and push movies_admin: prod and dev versions
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log into registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: dump-env
+        run: cp config/.env.template config/.env
+
+      - name: Build docker-compose stack
+        run: docker-compose -f docker-compose.yml -f docker-compose.override.yml build
+
+      - name: List images
+        run: docker images
+
+      - name: Push images
+        run: docker-compose -f docker-compose.yml -f docker-compose.override.yml push --ignore-push-failures
+
+  build-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log into registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: dump-env
+        run: cp config/.env.template config/.env
+
+      - name: Build docker-compose stack
+        run: docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+
+      - name: List images
+        run: docker images
+
+      - name: Push images
+        run: docker-compose -f docker-compose.yml -f docker-compose.prod.yml push --ignore-push-failures

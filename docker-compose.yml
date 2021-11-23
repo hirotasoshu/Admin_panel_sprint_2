@@ -9,6 +9,7 @@ services:
     env_file: ./config/.env
 
   web:
+    image: ghcr.io/hirotasoshu/movies-admin:dev
     build:
       target: development_build
       context: .

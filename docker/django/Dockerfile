@@ -3,6 +3,7 @@
 
 # Почти полностью взято из https://github.com/wemake-services/wemake-django-template
 FROM python:3.9.7-slim-buster AS development_build
+LABEL org.opencontainers.image.description DJANGO_ADMIN_SPRINT_DOCKERFILE
 
 LABEL maintainer="rasetsuq@yandex.ru"
 

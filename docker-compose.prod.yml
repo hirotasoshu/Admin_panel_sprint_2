@@ -13,6 +13,7 @@ services:
       - web
 
   web:
+    image: ghcr.io/hirotasoshu/movies-admin:latest
     build:
       target: production_build
       context: .

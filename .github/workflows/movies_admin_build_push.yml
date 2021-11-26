@@ -18,13 +18,13 @@ jobs:
         run: cp config/.env.template config/.env
 
       - name: Build docker-compose stack
-        run: docker-compose -f docker-compose.yml -f docker-compose.override.yml build
+        run: docker-compose -f docker-compose.yml build
 
       - name: List images
         run: docker images
 
       - name: Push images
-        run: docker-compose -f docker-compose.yml -f docker-compose.override.yml push --ignore-push-failures
+        run: docker-compose -f docker-compose.yml push --ignore-push-failures
 
   build-prod:
     runs-on: ubuntu-latest
